@@ -4,13 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'date +%s > pipeline_start.txt'
                 sh 'make build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'make test'
+                sh 'python3 run_tests.py'
             }
         }
 
@@ -26,6 +27,15 @@ pipeline {
         stage('Train ML Model') {
             steps {
                 sh '.venv/bin/python train_model.py'
+            }
+        }
+
+        stage('Collect Build Data') {
+            steps {
+                sh '''
+                    export PIPELINE_START_TIME=$(cat pipeline_start.txt)
+                    .venv/bin/python collect_build_data.py
+                '''
             }
         }
 

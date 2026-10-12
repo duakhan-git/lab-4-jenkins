@@ -6,3 +6,13 @@ ml-env/
 
 ml-env/
 *.pkl
+
+.venv/
+test_results.json
+current_build_data.json
+pipeline_start.txt
+
+.venv/
+test_results.json
+current_build_data.json
+pipeline_start.txt
